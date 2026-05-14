@@ -4,14 +4,36 @@ package org.example;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+        // 1. Instanciando objetos
+        Filme filme = new Filme("Inception", 148, "4K");
+        Musica musica = new Musica("Fear Of the Dark", 6, "Iron Maiden");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+        // 2. Exibindo duração formatada
+        System.out.println("Duração do Filme: " + ConversorTempo.formatarMinutos(148));
+        System.out.println("Duração da Música: " + ConversorTempo.formatarMinutos(6));
+        System.out.println("---");
+
+        // 3. Testando Polimorfismo
+        processarPlayer(filme);
+        processarPlayer(musica);
+
+        // 4. Testando Download (Apenas Filme)
+        filme.realizarDownload();
+
+        // musica.realizarDownload();
+        // ^ Erro de compilação: Musica não implementa Baixavel.
+
+        // Exibindo Custos
+        System.out.println("---");
+        System.out.println("Custo do Filme (" + filme.titulo + "): R$ " + filme.calcularCusto());
+        System.out.println("Custo da Música (" + musica.titulo + "): R$ " + musica.calcularCusto());
+    }
+
+    // Método que aceita qualquer coisa que seja Reproduzivel
+    public static void processarPlayer(Reproduzivel item) {
+        item.darPlay();
     }
 }
+
+
+
